@@ -24,7 +24,7 @@ def order_message(status: str) -> str:
     status_map = {
         "pending" : "Chờ xử lý",
         "confirmed" : "Đã xác nhận",
-        "shipping": "Đan giao",
+        "shipping": "Đang giao",
         "completed": "Đã hoàn thành",
         "cancelled": "Đã huỷ đơn"
     }
@@ -40,3 +40,26 @@ def shipping_fee(distance_km):
     else:
         ship_fee = 40000
     return ship_fee
+# Câu 6: Kiểm tra đăng nhập đơn giản [Dễ] (Không tạo API)
+def login(usename, password):
+    log = False
+    if usename == "admin" and password == "123456":
+        log = True
+    return log
+# Câu 7: Đếm số đơn theo trạng thái [Dễ]
+def count_status(statuses: list) -> dict:
+    counted_status = {}
+    for status in statuses:
+        counted_status[status] = counted_status.get(status, 0) + 1
+    return counted_status
+# Câu 8: Tìm sản phẩm theo id [Dễ]
+def find_product(products: list, product_id: str) -> dict | None:
+    for product in products:
+        if product.get("id") == product_id:
+            return product
+    return None
+
+
+
+
+    
