@@ -25,10 +25,10 @@ def api_filter_available(products: List[ProductInput]):
 # API câu 2
 @router.post("/api/cart/total")
 def api_cart_total(cart: List[CartItem]):
-    cart_dict = [item.dict() for item in cart]
+    cart_dict = [item.model_dump() for item in cart]
 
     total = cart_total(cart_dict)
-    # Trả về dạn JSON
+    # Trả về dạng JSON
     return {"total": total}
 
 # API câu 4
@@ -39,3 +39,24 @@ def api_order_message(payload: OrderStatusInput):
 
     # JSON
     return {"message": message}
+# API câu 13
+@router.post("/api/customer/classify")
+def api_classify_customer(payload: TotalSpentInput):
+    # Gọi hàm nghiệp vụ và trả vê kết quả
+    classification = classify_customer(payload.total_spent)
+    return {"classification": classification}
+
+# API câu 15
+@router.post("/api/admin/users/active")
+def api_get_active_users(user: List[UserInput]):
+    # Chuyển đổi dữ liệu Pydantic thành list of Dictionaries thuần
+    users_dict = [u.model_dump() for u in users]
+
+    # Gọi hàm nghiệp vụ cốt lõi
+    filtered_user = active_users(users_dict)
+
+    # Trả về kết quả
+    return {"active_users": filtered_user}
+
+
+

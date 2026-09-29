@@ -59,7 +59,76 @@ def find_product(products: list, product_id: str) -> dict | None:
             return product
     return None
 
+# Câu 9: Lọc đơn hàng có giá trị cao [Dễ]
+def high_value_orders(orders: list, min_total: int) -> list:
+    result = []
+    for order in orders:
+        if order.get("total", 0) >= min_total:
+            result.append(order)
+        return result
+# Câu 10: Kiểm tra số dư trước khi thanh toán [Dễ]
+def can_pay(balance: int, order_total: int) -> True:
+    check = False
+    if balance >= order_total:
+        check = True
+    else: 
+        return check
+# Câu 11: Cập nhật tồn kho sau khi bán [Dễ]
+def update_stock(stock: int, sold_quantity: int) -> int:
+    new_stock = stock - sold_quantity
+    return new_stock if new_stock >= 0 else 0
+# Câu 12: Tính điểm tích lũy khách hàng [Dễ]
+def loyalty_points(order_total: int) -> int:
+    points = order_total // 10000
+    return points
+# Câu 13: Phân loại khách hàng theo tổng chi tiêu [Dễ] (Tạo API)
+def classify_customer(total_spent:int) -> str:
+    if total_spent < 1000000: 
+        return "normal"
+    elif  total_spent >= 1000000 and total_spent <= 5000000:
+        return "silver"
+    elif total_spent > 5000000:
+        return "gold"
+# Câu 14: Kiểm tra email hợp lệ cơ bản [Dễ]
+def is_valid_email(email: str) -> bool:
+    # Kiểm tra có chứa ký tự '@' và '.com'  
+    check = False 
+    if "@" in email and ".com" in email:
+        check = True 
+    return check
+# Câu 15: Lọc người dùng đang hoạt động [Dễ] (Tạo API)
+def active_users(users: list) -> list:
+    """
+    Lọc ra những user có trạng thái hoạt động
+    """
+    # return [user for user in users if user.get("is_active")] 
+    active = []
+    for user in users:
+        if user.get("is_active"):
+            active.append(user)
+    return active
+# Câu 16: Tìm đơn hàng mới nhất [Dễ] (Tạo API)
+def latest_order(orders):
+    for order in orders:
+        latest = {}
+        if order.get("id") > latest.get("id", 0):
+            latest = order
+        return latest
+    
+    
 
+
+
+
+
+    
+
+    
+
+
+
+    
+    
 
 
     
