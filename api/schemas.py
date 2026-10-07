@@ -9,7 +9,7 @@ from pydantic import BaseModel
 class ProductInput(BaseModel):
     id: int
     name: str
-    sotck: int
+    stock: int
     is_active: bool
 
 # Input câu 2
@@ -36,4 +36,30 @@ class UserInput(BaseModel):
 class Order_IDInput(BaseModel):
     id: int
 
-# 
+# Input câu 16
+class Order_IDInput(BaseModel):
+    id: int
+
+# Input câu 17
+class TransactionInput(BaseModel):
+    id: int
+    amount: int
+    status: str
+
+# Input câu 18
+class UserPasswordInput(BaseModel):
+    id: int
+    name: str
+    password: str
+
+# Input câu 19
+class OrderCodeInput(BaseModel):
+    order_id: int
+    user_id: int
+    timestamp: str
+
+# Input (câu 21) tìm sản phẩm giá thấp nhất
+class ProductPriceInput(BaseModel):
+    name: str
+    price: int
+

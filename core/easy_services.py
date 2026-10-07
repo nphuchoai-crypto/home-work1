@@ -108,12 +108,42 @@ def active_users(users: list) -> list:
             active.append(user)
     return active
 # Câu 16: Tìm đơn hàng mới nhất [Dễ] (Tạo API)
-def latest_order(orders):
+def lastest_order(orders):
+    lastest = {}
     for order in orders:
-        latest = {}
-        if order.get("id") > latest.get("id", 0):
-            latest = order
-        return latest
+        if order.get("id") > lastest.get("id", 0):
+            lastest = order
+
+    return lastest
+# Câu 17: Tính tổng doanh thu trong ngày [Dễ] (Tạo API)
+def daily_revenue(transactions):
+    total_revenue = 0
+    for transaction in transactions:
+        if transaction.get("status") == "success":
+            total_revenue += transaction.get("amount", 0)
+    return total_revenue
+# Câu 18: Ẩn mật khẩu trong danh sách user [Dễ]
+def hide_password(users):
+    for user in users:
+        user.pop("password", None) # pop() để xoá key khỏi dictionary, None để tránh mắc lỗi nếu key không tồn tại
+    return users
+# Câu 19: Tạo mã đơn hàng đơn giản [Dễ] (Tạo API)
+def order_code(order_id):
+    return f"ORDER-{order_id:06d}" # :06d để định dạng số nguyên thành 6 chữ số, thêm số 0 ở đầu nếu cần
+
+# Câu 20: Kiểm tra quyền admin [Dễ]
+def is_admin(user):
+    return user.get("role") == "admin"
+
+# Câu 21: Tìm sản phẩm có giá thấp nhất [Dễ] (Tạo API)
+def cheapest_product(products):
+    if not products:
+        return None
+    return min(products, key=lambda product: product["price"])
+
+
+
+
     
     
 
