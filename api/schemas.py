@@ -3,6 +3,8 @@
 # endpoints.py (Lễ tân/ Bồi bàn): Nhận HTTP Request
 
 # schemas.py (Menu/ Quy định): Ép kiểu dữ liệu trước khi truyền (Data Validation)
+
+
 from pydantic import BaseModel
 
 # Input câu 1
@@ -32,9 +34,6 @@ class UserInput(BaseModel):
     name: str
     is_active: bool
 
-# Input câu 16
-class Order_IDInput(BaseModel):
-    id: int
 
 # Input câu 16
 class Order_IDInput(BaseModel):
@@ -58,8 +57,18 @@ class OrderCodeInput(BaseModel):
     user_id: int
     timestamp: str
 
-# Input (câu 21) tìm sản phẩm giá thấp nhất
+# Input (câu 22) Tìm sản phẩm giá thấp nhất
 class ProductPriceInput(BaseModel):
     name: str
     price: int
+
+# Input câu 24
+class CouponInput(BaseModel):
+    code: str
+    coupon_list: list[str]
+
+# Input câu 25
+class ProductCategoryInput(BaseModel):
+    name: str
+    category: str
 

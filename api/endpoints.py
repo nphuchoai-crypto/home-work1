@@ -5,10 +5,10 @@
 # schemas.py (Menu/ Quy định): Ép kiểu dữ liệu trước khi truyền (Data Validation)
 from fastapi import APIRouter
 from typing import List
-from core.easy_services import (filter_available, cart_total, cheapest_product, lastest_order, order_message, 
+from core.easy_services import (filter_products_by_category,coupon_exists, filter_available, cart_total, cheapest_product, lastest_order, order_message, 
                                 classify_customer, active_users, lastest_order,
                                  daily_revenue, hide_password, order_code ) 
-from api.schemas import (ProductInput, CartItem, ProductPriceInput, OrderStatusInput, TotalSpentInput, 
+from api.schemas import (CouponInput, ProductCategoryInput, ProductInput, CartItem, ProductPriceInput, OrderStatusInput, TotalSpentInput, 
                          UserInput, Order_IDInput, TransactionInput, OrderCodeInput)
 
 router = APIRouter()
@@ -103,12 +103,28 @@ def api_orders_code(payload: OrderCodeInput):
     # Trả về kết quả
     return {"order_code": order_code_result}
 
-# API (câu 22) Tìm sản phẩm có giá thấp nhất
+# API câu 22
 @router.post("/api/products/cheapest")
 def api_cheapest_product(products: List[ProductPriceInput]):
     products_dict = [product.model_dump() for product in products]
 
     return cheapest_product(products_dict)
+
+# API câu 24
+@router.post("/api/coupons/check")
+def api_coupon_exist(payload: CouponInput):
+    # Gọi hàm nghiệp vụ cốt lõi
+    result = coupon_exists(payload.code, payload.coupon_list)
+
+    # Trả về kết quả
+    return {"exists": result}
+
+
+# API câu 25
+@router.post("/api/products/filter_by_category")
+def api_filter_products_by_category(products: List[ProductCategoryInput], category: str):
+    product_dict = [product.model_dump() for product in products]
+    return filter_products_by_category(product_dict, category)
     
     
 

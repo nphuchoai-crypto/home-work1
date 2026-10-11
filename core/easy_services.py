@@ -135,16 +135,30 @@ def order_code(order_id):
 def is_admin(user):
     return user.get("role") == "admin"
 
-# Câu 21: Tìm sản phẩm có giá thấp nhất [Dễ] (Tạo API)
+# Câu 21: Tính thuế VAT [Dễ]
+def add_vat(price, vat_percent):
+    return price * (1 + vat_percent/100)
+
+# Câu 22: Tìm sản phẩm có giá thấp nhất [Dễ] (Tạo API)
 def cheapest_product(products):
     if not products:
         return None
     return min(products, key=lambda product: product["price"])
 
+# Câu 23: Tính số lượng sản phẩm trong giỏ [Dễ]
+def cart_quantity(cart)-> int:
+    return sum(item.get("quantity", 0) for item in cart)
+
+# Câu 24: Kiểm tra mã giảm giá có tồn tại [Dễ] (Tạo API)
+def coupon_exists(code, coupon_list)-> bool:
+    return code in coupon_list
+
+# Câu 25: Lọc sản phẩm theo danh mục [Dễ] (Tạo API)
+def filter_products_by_category(products, category)-> list:
+    return [product for product in products if product.get("category") == category]
 
 
 
-    
     
 
 
