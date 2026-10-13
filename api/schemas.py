@@ -72,3 +72,12 @@ class ProductCategoryInput(BaseModel):
     name: str
     category: str
 
+# Input câu 27
+class NameInput(BaseModel):
+    name: str
+
+# Input câu 31
+class CustomerInput(BaseModel):
+    customer: list[dict]
+    phone: str
+

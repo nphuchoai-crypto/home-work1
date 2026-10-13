@@ -5,11 +5,11 @@
 # schemas.py (Menu/ Quy định): Ép kiểu dữ liệu trước khi truyền (Data Validation)
 from fastapi import APIRouter
 from typing import List
-from core.easy_services import (filter_products_by_category,coupon_exists, filter_available, cart_total, cheapest_product, lastest_order, order_message, 
+from core.easy_services import (find_customer,normalize_name,filter_products_by_category,coupon_exists, filter_available, cart_total, cheapest_product, lastest_order, order_message, 
                                 classify_customer, active_users, lastest_order,
                                  daily_revenue, hide_password, order_code ) 
 from api.schemas import (CouponInput, ProductCategoryInput, ProductInput, CartItem, ProductPriceInput, OrderStatusInput, TotalSpentInput, 
-                         UserInput, Order_IDInput, TransactionInput, OrderCodeInput)
+                         UserInput, Order_IDInput, TransactionInput, OrderCodeInput, NameInput, CustomerInput )
 
 router = APIRouter()
 # API câu 1
@@ -125,6 +125,24 @@ def api_coupon_exist(payload: CouponInput):
 def api_filter_products_by_category(products: List[ProductCategoryInput], category: str):
     product_dict = [product.model_dump() for product in products]
     return filter_products_by_category(product_dict, category)
+
+# API câu 27
+@router.post("/api/normalize/name")
+def api_normalize_name(payload: NameInput):
+    result = normalize_name(payload.name)
+
+    # Trả về kết quả
+    return {
+        "normalize_name": result
+    }
+
+# API câu 31
+@router.post("/api/find/customer")
+def api_find_customer(payload: CustomerInput):
+    customer = find_customer(payload.customers, payload.phone)
+    # Trả về kết quả
+    return {"customer": customer}
+
     
     
 

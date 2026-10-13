@@ -157,6 +157,89 @@ def coupon_exists(code, coupon_list)-> bool:
 def filter_products_by_category(products, category)-> list:
     return [product for product in products if product.get("category") == category]
 
+# Câu 26: Kiểm tra giới hạn số lần đăng nhập sai [Dễ]
+def is_locked(failed_attempts)-> bool:
+    is_locked = True
+    if failed_attempts >= 5:
+        return is_locked
+    else:
+        return False
+
+# Câu 27: Chuẩn hoá tên người dùng (API)
+def normalize_name(name: str)-> str:
+    return name.strip().title()
+
+# Câu 28: Tính lương theo số giờ làm [Dễ]
+def calculate_salary(hours: float, rate: float)-> float:
+    if hours <= 40:
+        total_salary = hours * rate 
+    elif hours > 40:
+        total_salary = (40 * rate) + ((hours - 40) * rate * 1.5)
+    return total_salary
+
+# Câu 29: Đếm số ticket ưu tiên cao [Dễ]
+def count_urgent(tickets: list[Ticket])-> int:
+    """ 
+    Đếm số lượng ticket có priority = "urgen"
+    """
+    count = 0
+    for ticket in tickets:
+        if ticket.get("priority") == "urgent":
+            count += 1
+    return count
+
+# Câu 30: Tính phần trăm hoàn thành công việc [Dễ]
+def progress_percent(done_task, total_task):
+    if total_task == 0:
+        return None
+    else:
+        percent = (done_task / total_task) * 100
+    return percent
+
+# Câu 31: Tìm khách hàng theo số điện thoại [Dễ] (Tạo API)
+def find_customer(customers: list[dict], phone: str)-> dict| None:
+    """
+    Viết hàm find_customer(customers, phone) trả về khách hàng có phone
+    trùng khớp. Nếu không có trả về None.
+    """
+    for customer in customers:
+        if customer.get("phone") == phone:
+            return customer
+    return None
+
+# Câu 32: Kiểm tra tồn tại username [Dễ]
+"""
+Khi đăng ký, hệ thống cần kiểm tra username đã được sử dụng chưa.
+Viết hàm username_exists(users, username) trả về True nếu username
+đã có trong danh sách users.
+"""
+def username_exists(users: list[dict], username: str)-> bool:
+    """
+    TODO: Kiểm tra xem username có tồn tại hay chưa
+    """
+    for user in users:
+        if user.get("username") == username:
+            return True
+    return False
+
+# Câu 33: Lọc đơn hàng đã thanh toán [Dễ]
+"""
+TODO: Hệ thống cần biết những đơn hàng đã thanh toán
+"""
+result = []
+def paid_orders(orders: list[dict])-> list:
+    for order in orders:
+        if order.get("is_paid") == True:
+            result.append(order)
+    return result
+
+
+
+    
+
+
+
+
 
 
     
