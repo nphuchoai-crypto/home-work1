@@ -141,7 +141,9 @@ def api_normalize_name(payload: NameInput):
 def api_find_customer(payload: CustomerInput):
     customer = find_customer(payload.customers, payload.phone)
     # Trả về kết quả
-    return {"customer": customer}
+    return {
+        "customer": customer
+    }
 
     
     

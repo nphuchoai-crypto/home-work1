@@ -233,6 +233,20 @@ def paid_orders(orders: list[dict])-> list:
             result.append(order)
     return result
 
+# Câu 34: Tính tổng tiền hoàn lại [Dễ]
+# Bối cảnh: Payment service cần tính tổng số tiền phải hoàn cho các giao dịch refund.
+
+def refund_total(transactions: list[dict])-> int:
+    total_refund = 0
+    for transaction in transactions:
+        if transaction.get("type") == "refund":
+            total_refund += transaction.get("amount", 0)
+    return total_refund
+
+
+
+
+
 
 
     
