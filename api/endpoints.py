@@ -3,15 +3,16 @@
 # endpoints.py (Lễ tân/ Bồi bàn): Nhận HTTP Request
 
 # schemas.py (Menu/ Quy định): Ép kiểu dữ liệu trước khi truyền (Data Validation)
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from typing import List
-from core.easy_services import (find_customer,normalize_name,filter_products_by_category,coupon_exists, filter_available, cart_total, cheapest_product, lastest_order, order_message, 
+from core.easy_services import (is_wishlisted,find_customer,normalize_name,filter_products_by_category,coupon_exists, filter_available, cart_total, cheapest_product, lastest_order, order_message, 
                                 classify_customer, active_users, lastest_order,
                                  daily_revenue, hide_password, order_code ) 
 from api.schemas import (CouponInput, ProductCategoryInput, ProductInput, CartItem, ProductPriceInput, OrderStatusInput, TotalSpentInput, 
-                         UserInput, Order_IDInput, TransactionInput, OrderCodeInput, NameInput, CustomerInput )
+                         UserInput, Order_IDInput, TransactionInput, OrderCodeInput, NameInput, FindCustomerRequest, WishlistInput )
 
 router = APIRouter()
+
 # API câu 1
 @router.post("/api/products/available")
 def api_filter_available(products: List[ProductInput]):
@@ -138,20 +139,27 @@ def api_normalize_name(payload: NameInput):
 
 # API câu 31
 @router.post("/api/find/customer")
-def api_find_customer(payload: CustomerInput):
-    customer = find_customer(payload.customers, payload.phone)
+def api_find_customer(request: FindCustomerRequest):
+    result = find_customer(
+        request.customers,
+        request.phone
+    )
+
+    if result is None:
+        raise HTTPException(status_code=404, detail="Customer not found")
     # Trả về kết quả
     return {
-        "customer": customer
+        "customer": result
     }
 
+# API câu 35: Kiểm tra sản phẩm có trong wishlist
+@router.post("/api/wishlist/check", response_model=bool)
+def api_is_wishlisted(payload: WishlistInput) -> bool:
+    return is_wishlisted(payload.product_id, payload.wishlist)
     
     
 
 
 
     
-
-
-
 

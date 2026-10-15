@@ -77,7 +77,15 @@ class NameInput(BaseModel):
     name: str
 
 # Input câu 31
-class CustomerInput(BaseModel):
-    customer: list[dict]
+class Customer(BaseModel):
+    name: str
     phone: str
 
+class FindCustomerRequest(BaseModel):
+    customers: list[Customer]
+    phone: str
+
+# Input câu 35: JSON gửi wishlist dạng mảng, Pydantic chuyển thành set.
+class WishlistInput(BaseModel):
+    product_id: str
+    wishlist: set[str]

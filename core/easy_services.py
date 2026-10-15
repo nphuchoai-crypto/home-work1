@@ -1,6 +1,11 @@
 # core: Business Logic Layer nơi chứa logic chính để tính toán (Nhà bếp làm món)
 
 # Câu 1: Lọc sản phẩm còn hàng (Dễ)
+from typing import Optional
+
+from Python_Practice.Day5_6 import Customer
+
+
 def filter_available(products):
     # Lọc sản phẩm có stock > 0 và is_active = True
     return [p for p in products if p.get("stock", 0) > 0 and p.get("is_active") is True]
@@ -197,13 +202,13 @@ def progress_percent(done_task, total_task):
     return percent
 
 # Câu 31: Tìm khách hàng theo số điện thoại [Dễ] (Tạo API)
-def find_customer(customers: list[dict], phone: str)-> dict| None:
+def find_customer(customers, phone)-> Optional[Customer]:
     """
     Viết hàm find_customer(customers, phone) trả về khách hàng có phone
     trùng khớp. Nếu không có trả về None.
     """
     for customer in customers:
-        if customer.get("phone") == phone:
+        if customer.phone == phone:
             return customer
     return None
 
@@ -242,6 +247,11 @@ def refund_total(transactions: list[dict])-> int:
         if transaction.get("type") == "refund":
             total_refund += transaction.get("amount", 0)
     return total_refund
+
+# Câu 35: Kiểm tra sản phẩm có trong wishlist [Dễ] (Tạo API)
+def is_wishlisted(product_id: str, wishlist: set[str]) -> bool:
+    # Toán tử in trả về True nếu mã sản phẩm nằm trong set, ngược lại False.
+    return product_id in wishlist
 
 
 
