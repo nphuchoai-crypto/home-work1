@@ -253,10 +253,16 @@ def is_wishlisted(product_id: str, wishlist: set[str]) -> bool:
     # Toán tử in trả về True nếu mã sản phẩm nằm trong set, ngược lại False.
     return product_id in wishlist
 
+# Câu 36: Lấy danh mục duy nhất [Dễ]
+# Bối cảnh: Trang bộ lọc cần hiển thị danh sách danh mục không trùng lặp.
 
-
-
-
+def unique_categories(products: list[dict])-> set[str]:
+    categories = set()
+    for product in products:
+        category = product.get("category")
+        if category:
+            categories.add(category)
+    return categories
 
 
     
