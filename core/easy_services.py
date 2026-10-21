@@ -273,31 +273,17 @@ def count_missing(values)-> int:
         if value is None:
             missing_count += 1
     return missing_count 
-    
-        
 
+# Câu 38: Tính điểm đánh giá trung bình [Dễ]
+# Bối cảnh: Product service cần hiển thị rating trung bình của sản phẩm.
+# TODO: Viết hàm average_rating(reviews) trả về điểm đánh giá trung bình bằng cách lấy tổng rating chia cho số lượng review có rating.
 
-    
-
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-    
-
-
-
-    
-    
-
-
-    
+def average_rating(reviews: list[dict])-> float:
+    total_rating = 0
+    count = 0
+    for review in reviews:
+        rating = review.get("rating")
+        if rating is not None:
+            total_rating += rating
+            count += 1
+    return total_rating / count if count > 0 else 0.0
