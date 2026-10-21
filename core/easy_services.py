@@ -264,6 +264,18 @@ def unique_categories(products: list[dict])-> set[str]:
             categories.add(category)
     return categories
 
+# Câu 37: Kiểm tra dữ liệu bị thiếu [Dễ]
+# Bối cảnh: Data validation service cần phát hiện trường dữ liệu bị thiếu trước khi lưu vào database.
+
+def count_missing(values)-> int:
+    missing_count = 0
+    for value in values:
+        if value is None:
+            missing_count += 1
+    return missing_count 
+    
+        
+
 
     
 
