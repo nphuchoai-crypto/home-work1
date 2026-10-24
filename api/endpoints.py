@@ -7,9 +7,10 @@ from fastapi import APIRouter, HTTPException
 from typing import List
 from core.easy_services import (is_wishlisted,find_customer,normalize_name,filter_products_by_category,coupon_exists, filter_available, cart_total, cheapest_product, lastest_order, order_message, 
                                 classify_customer, active_users, lastest_order,
-                                 daily_revenue, hide_password, order_code ) 
+                                 daily_revenue, hide_password, order_code, build_catalog ) 
 from api.schemas import (CouponInput, ProductCategoryInput, ProductInput, CartItem, ProductPriceInput, OrderStatusInput, TotalSpentInput, 
-                         UserInput, Order_IDInput, TransactionInput, OrderCodeInput, NameInput, FindCustomerRequest, WishlistInput )
+                         UserInput, Order_IDInput, TransactionInput, OrderCodeInput, NameInput, FindCustomerRequest, WishlistInput,
+                          ProductInput )
 
 router = APIRouter()
 
@@ -156,6 +157,22 @@ def api_find_customer(request: FindCustomerRequest):
 @router.post("/api/wishlist/check", response_model=bool)
 def api_is_wishlisted(payload: WishlistInput) -> bool:
     return is_wishlisted(payload.product_id, payload.wishlist)
+
+# API câu 41: Xây dựng catalog sản phẩm theo id [Khó] (Tạo API) 
+@router.post("/api/build_catalog")
+def api_build_catalog(products: list[ProductInput])-> dict:
+    # Gọi hàm nghiệp vụ cốt lõi 
+    product_dicts = []
+    for product in products:
+        product_dicts.append(product.model_dump())
+
+    # Trả về kết quả 
+    return build_catalog(product_dicts)
+    
+        
+
+    
+
     
     
 

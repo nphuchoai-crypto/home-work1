@@ -1,11 +1,10 @@
 # core: Business Logic Layer nơi chứa logic chính để tính toán (Nhà bếp làm món)
 
-# Câu 1: Lọc sản phẩm còn hàng (Dễ)
-from typing import Optional
 
+from typing import Optional
 from Python_Practice.Day5_6 import Customer
 
-
+# Câu 1: Lọc sản phẩm còn hàng (Dễ)
 def filter_available(products):
     # Lọc sản phẩm có stock > 0 và is_active = True
     return [p for p in products if p.get("stock", 0) > 0 and p.get("is_active") is True]
@@ -287,3 +286,52 @@ def average_rating(reviews: list[dict])-> float:
             total_rating += rating
             count += 1
     return total_rating / count if count > 0 else 0.0
+
+# Câu 39: Phân loại ticket hỗ trợ [Dễ] 
+# Bối cảnh: Support service phân loại ticket theo mức độ ưu tiên
+
+def ticket_label(priority:str)-> str:
+    # Sử dụng Dictionary làm từ điển mapping, trả về các nhãn tương xứng
+    labels = {
+        "urgent": "Xử lý ngay",
+        "high": "Ưu tiên cao",
+        "normal": "Bình thường",
+        "low": "Ưu tiên thấp"
+    }
+    # labels.get() nếu không tìm thấy key có giá trị tương ứng sẽ trả về Không xác định 
+    return labels.get(priority,"Không xác định")
+
+# Câu 40: Tính số phòng còn trống [Dễ] 
+# Bối cảnh: Booking service cần biết số phòng trống để hiển thị cho khách 
+
+def available_rooms(rooms: list[dict])-> int:
+    empty_rooms = 0
+    for room in rooms:
+        if room.get("status") == "empty":
+            empty_rooms += 1
+    return empty_rooms
+
+# Câu 41: Xây dựng catalog sản phẩm theo id [Khó] (Tạo API)
+# Bối cảnh: Backend API cần tối ưu tra cứu sản phẩm theo id thay vì duyệt list nhiều lần. 
+"""
+Viết hàm build_catalog(products) chuyển danh sách thành dict. 
+Nếu có sản phẩm trùng id, giữ sản phẩm xuất hiện sau cùng.
+Sử dụng dict[key] = value 
+"""
+
+def build_catalog(products: list[dict])-> dict:
+    catalog = {}
+    for product in products:  
+        catalog[product["id"]] = product 
+    return catalog 
+
+
+
+
+
+
+
+
+
+
+

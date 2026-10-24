@@ -89,3 +89,16 @@ class FindCustomerRequest(BaseModel):
 class WishlistInput(BaseModel):
     product_id: str
     wishlist: set[str]
+
+# Input câu 41: Xây dựng catalog sản phẩm theo id [Khó] (Tạo API) 
+class ProductInput(BaseModel):
+    id: str
+    name: str
+    price: float 
+
+
+
+
+
+
+
