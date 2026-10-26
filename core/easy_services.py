@@ -325,6 +325,49 @@ def build_catalog(products: list[dict])-> dict:
         catalog[product["id"]] = product 
     return catalog 
 
+# Câu 42: Áp dụng mã giảm giá có điều kiện [Khó] 
+# Bối cảnh: Checkout service cần kimeer tra mã giảm giá theo loại percent hoặc fixed và điều kiện tối thiểu
+"""
+Viết hàm apply_coupon(cart_total, code, coupon_db). Nếu mã không tồn
+tại trả về valid False. Nếu cart_total nhỏ hơn min_order trả về valid False. Nếu
+hợp lệ, tính discount_amount, final_price và message.
+"""
+def apply_coupon(cart_total: float, code: str, coupon_db: dict)-> dict:
+    if code not in coupon_db: # Kiểm tra code có hợp lệ hay không? 
+        return {"valid": False}
+
+    coupon = coupon_db[code] # lấy thông tin coupon theo code
+
+    if cart_total < coupon["min_order"]: 
+        return {"valid": False}
+
+    if coupon["type"] == "percent":
+        discount_amount = cart_total * coupon["value"]/100 
+    else: # Ở đây là loại fixed, số tiền giảm sẽ được cố định 
+        discount_amount = coupon["value"] 
+
+    discount_amount = min(discount_amount, cart_total)
+
+    final_price = cart_total - discount_amount 
+
+    return {
+        "valid": True,
+        "discount_amount": discount_amount,
+        "final_price": final_price,
+        "message": "Áp dụng thành công"
+    }
+
+
+
+
+
+
+    
+
+
+
+
+
 
 
 
