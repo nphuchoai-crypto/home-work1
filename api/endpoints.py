@@ -7,10 +7,10 @@ from fastapi import APIRouter, HTTPException
 from typing import List
 from core.easy_services import (is_wishlisted,find_customer,normalize_name,filter_products_by_category,coupon_exists, filter_available, cart_total, cheapest_product, lastest_order, order_message, 
                                 classify_customer, active_users, lastest_order,
-                                 daily_revenue, hide_password, order_code, build_catalog ) 
+                                 daily_revenue, hide_password, order_code, build_catalog, daily_report ) 
 from api.schemas import (CouponInput, ProductCategoryInput, ProductInput, CartItem, ProductPriceInput, OrderStatusInput, TotalSpentInput, 
                          UserInput, Order_IDInput, TransactionInput, OrderCodeInput, NameInput, FindCustomerRequest, WishlistInput,
-                          ProductInput )
+                          CatalogProductInput, TransactionsInput  )
 
 router = APIRouter()
 
@@ -160,7 +160,7 @@ def api_is_wishlisted(payload: WishlistInput) -> bool:
 
 # API câu 41: Xây dựng catalog sản phẩm theo id [Khó] (Tạo API) 
 @router.post("/api/build_catalog")
-def api_build_catalog(products: list[ProductInput])-> dict:
+def api_build_catalog(products: list[CatalogProductInput])-> dict:
     # Gọi hàm nghiệp vụ cốt lõi 
     product_dicts = []
     for product in products:
@@ -168,15 +168,15 @@ def api_build_catalog(products: list[ProductInput])-> dict:
 
     # Trả về kết quả 
     return build_catalog(product_dicts)
-    
-        
 
-    
+# API câu 43: Báo cáo kinh doanh theo ngày để tính tổng tiền, số đơn và avg
+@router.post("/api/daily/report")
+def api_daily_report(requests: list[TransactionsInput])-> dict: 
+    reports = []
+    for request in requests:
+        reports.append(request.model_dump())
 
-    
-    
+    # Trả về kết quả
+    return daily_report(reports)
 
-
-
-    
 

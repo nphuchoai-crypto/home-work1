@@ -91,10 +91,16 @@ class WishlistInput(BaseModel):
     wishlist: set[str]
 
 # Input câu 41: Xây dựng catalog sản phẩm theo id [Khó] (Tạo API) 
-class ProductInput(BaseModel):
+class CatalogProductInput(BaseModel):
     id: str
     name: str
     price: float 
+
+# Input câu 43: Tổng hợp doanh thu theo ngày
+class TransactionsInput(BaseModel):
+    date: str
+    amount: int 
+
 
 
 
