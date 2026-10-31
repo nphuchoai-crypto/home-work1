@@ -357,24 +357,22 @@ def apply_coupon(cart_total: float, code: str, coupon_db: dict)-> dict:
         "message": "Áp dụng thành công"
     }
 
+# Câu 43:Tổng hợp doanh thu theo ngày [Khó] (Tạo API)
+# Bối cảnh: Báo cáo kinh doanh cần gom các giao dịch theo ngày để tính tổng tiền, số đơn và trung bình mỗi đơn.
 
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+"""
+Viết hàm daily_report(transactions) trả về dict dạng {date: {total, count,avg}}.
+ Làm tròn avg đến 2 chữ số thập phân nếu cần.
+"""
+def daily_report(transactions: list[dict])-> dict:
+    report = {}
+    for transaction in transactions:
+        date = transaction["date"]
+        amount = transaction["amount"]
+        if date not in report:
+            report[date] = {"total":0, "count": 0}
+        report[date]["total"] += amount
+        report[date]["count"] += 1
+    for day in report.values():
+        day["avg"] = round(day["total"] / day["count"], 2)
+    return report
