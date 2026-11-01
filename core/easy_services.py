@@ -376,3 +376,37 @@ def daily_report(transactions: list[dict])-> dict:
     for day in report.values():
         day["avg"] = round(day["total"] / day["count"], 2)
     return report
+
+# Câu 44: Gợi ý sản phẩm liên quan [Khó] (Tạo API)
+# Bối cảnh: Recommendation service cần gợi ý sản phẩm cùng danh mục với sản phẩm hiện tại.
+
+"""
+Viết hàm related_products(product_id, products, limit) trả về danh sách sản phẩm cùng category với product_id.
+trả về tối đa 2 sản phẩm, loại bỏ sản phẩm hiện tại, sắp xếp rating giảm dần. Nếu product_id không tồn tại trả về list rỗng.
+
+"""
+def related_products(product_id: int, products: list[dict], limit: int) -> list[dict]:
+    # Tìm category của product_id
+    category = None
+    for product in products:
+        if product["id"] == product_id:
+            category = product["category"]
+            break
+    if category is None:
+        return []
+    related = []
+    for product in products:
+        if product["category"] == category and product["id"] != product_id:
+            related.append(product)
+    sorted_related = sorted(related, key=lambda p: p["rating"], reverse=True) 
+    return sorted_related[:limit]
+
+    
+
+    
+
+
+
+
+
+            
