@@ -7,10 +7,10 @@ from fastapi import APIRouter, HTTPException
 from typing import List
 from core.easy_services import (is_wishlisted,find_customer,normalize_name,filter_products_by_category,coupon_exists, filter_available, cart_total, cheapest_product, lastest_order, order_message, 
                                 classify_customer, active_users, lastest_order,
-                                 daily_revenue, hide_password, order_code, build_catalog, daily_report ) 
+                                 daily_revenue, hide_password, order_code, build_catalog, daily_report, related_products ) 
 from api.schemas import (CouponInput, ProductCategoryInput, ProductInput, CartItem, ProductPriceInput, OrderStatusInput, TotalSpentInput, 
                          UserInput, Order_IDInput, TransactionInput, OrderCodeInput, NameInput, FindCustomerRequest, WishlistInput,
-                          CatalogProductInput, TransactionsInput  )
+                          CatalogProductInput, TransactionsInput, RelatedProductInput, RelatedProductsRequest  )
 
 router = APIRouter()
 
@@ -179,4 +179,18 @@ def api_daily_report(requests: list[TransactionsInput])-> dict:
     # Trả về kết quả
     return daily_report(reports)
 
+# API câu 44: Gợi ý sản phẩm liên quan 
+@router.post("/api/related_products")
+def api_related_products(request: RelatedProductsRequest):
+    product_id = request.product_id
+    products_list  = [p.model_dump() for p in request.products]
+    limit = request.limit 
 
+    # Gọi hàm nghiệp vụ và trả kết quả
+    related = related_products(product_id, products_list, limit)
+    return related 
+    
+    
+
+
+    

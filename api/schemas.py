@@ -5,7 +5,7 @@
 # schemas.py (Menu/ Quy định): Ép kiểu dữ liệu trước khi truyền (Data Validation)
 
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 # Input câu 1
 class ProductInput(BaseModel):
@@ -101,6 +101,16 @@ class TransactionsInput(BaseModel):
     date: str
     amount: int 
 
+# Input câu 44: Gợi ý sản phẩm liên quan
+class RelatedProductInput(BaseModel):
+    id: int
+    name: str
+    category: str
+    rating: float
+class RelatedProductsRequest(BaseModel):
+    product_id: int
+    products: list[RelatedProductInput]
+    limit: int = Field(..., gt=0)
 
 
 
