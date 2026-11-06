@@ -401,12 +401,28 @@ def related_products(product_id: int, products: list[dict], limit: int) -> list[
     sorted_related = sorted(related, key=lambda p: p["rating"], reverse=True) 
     return sorted_related[:limit]
 
-    
+# Câu 45: Xếp hạng sản phẩm bán chạy [Khó]
+# Bối cảnh: Analytics service cần thống kê top sản phẩm bán chạy từ danh sách các dòng sản phẩm trong đơn hàng.
 
-    
-
-
-
-
-
-            
+"""
+Viết hàm top_selling(items, top_n). Gom theo product_id, tính total_qty và
+revenue = tổng qty * price của từng dòng. Trả về top_n sản phẩm theo total_qty
+giảm dần.
+"""
+def top_selling(items: list[dict], top_n: int)-> list[dict]:
+    top_sales = {}
+    for item in items:
+        pid = item["product_id"]
+        if pid not in top_sales:
+            top_sales[pid] = {
+                "product_id": pid,
+                "name": item["name"],
+                "total_qty": 0,
+                "revenue": 0
+            }
+        top_sales[pid]["total_qty"] += item["qty"]
+        top_sales[pid]["revenue"] += item["qty"] * item["price"]
+    products = list(top_sales.values())
+    products.sort(key=lambda x: x["total_qty"], reverse=True)
+    return products[:top_n]
+     

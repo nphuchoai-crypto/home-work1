@@ -189,8 +189,3 @@ def api_related_products(request: RelatedProductsRequest):
     # Gọi hàm nghiệp vụ và trả kết quả
     related = related_products(product_id, products_list, limit)
     return related 
-    
-    
-
-
-    
