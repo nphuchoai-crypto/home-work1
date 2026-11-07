@@ -1,8 +1,6 @@
 # core: Business Logic Layer nơi chứa logic chính để tính toán (Nhà bếp làm món)
 
 
-from typing import Optional
-
 # Câu 1: Lọc sản phẩm còn hàng (Dễ)
 def filter_available(products):
     # Lọc sản phẩm có stock > 0 và is_active = True
@@ -197,7 +195,7 @@ def progress_percent(done_task, total_task):
     return percent
 
 # Câu 31: Tìm khách hàng theo số điện thoại [Dễ] (Tạo API)
-def find_customer(customers, phone)-> Optional[Customer]:
+def find_customer(customers, phone):
     """
     Viết hàm find_customer(customers, phone) trả về khách hàng có phone
     trùng khớp. Nếu không có trả về None.
