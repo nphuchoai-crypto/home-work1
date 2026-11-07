@@ -2,7 +2,6 @@
 
 
 from typing import Optional
-from Python_Practice.Day5_6 import Customer
 
 # Câu 1: Lọc sản phẩm còn hàng (Dễ)
 def filter_available(products):
@@ -71,12 +70,9 @@ def high_value_orders(orders: list, min_total: int) -> list:
             result.append(order)
     return result
 # Câu 10: Kiểm tra số dư trước khi thanh toán [Dễ]
-def can_pay(balance: int, order_total: int):
-    check = False
-    if balance >= order_total:
-        check = True
-    else: 
-        return check
+def can_pay(balance: int, order_total: int)->bool:
+    return balance >= order_total
+
 # Câu 11: Cập nhật tồn kho sau khi bán [Dễ]
 def update_stock(stock: int, sold_quantity: int) -> int:
     new_stock = stock - sold_quantity
@@ -230,8 +226,8 @@ def username_exists(users: list[dict], username: str)-> bool:
 """
 TODO: Hệ thống cần biết những đơn hàng đã thanh toán
 """
-result = []
 def paid_orders(orders: list[dict])-> list:
+    result = []
     for order in orders:
         if order.get("is_paid") == True:
             result.append(order)
