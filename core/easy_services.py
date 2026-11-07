@@ -69,9 +69,9 @@ def high_value_orders(orders: list, min_total: int) -> list:
     for order in orders:
         if order.get("total", 0) >= min_total:
             result.append(order)
-        return result
+    return result
 # Câu 10: Kiểm tra số dư trước khi thanh toán [Dễ]
-def can_pay(balance: int, order_total: int) -> True:
+def can_pay(balance: int, order_total: int):
     check = False
     if balance >= order_total:
         check = True
@@ -86,7 +86,7 @@ def loyalty_points(order_total: int) -> int:
     points = order_total // 10000
     return points
 # Câu 13: Phân loại khách hàng theo tổng chi tiêu [Dễ] (Tạo API)
-def classify_customer(total_spent:int) -> str:
+def classify_customer(total_spent:int):
     if total_spent < 1000000: 
         return "normal"
     elif  total_spent >= 1000000 and total_spent <= 5000000:
@@ -182,7 +182,7 @@ def calculate_salary(hours: float, rate: float)-> float:
     return total_salary
 
 # Câu 29: Đếm số ticket ưu tiên cao [Dễ]
-def count_urgent(tickets: list[Ticket])-> int:
+def count_urgent(tickets: list[dict])-> int:
     """ 
     Đếm số lượng ticket có priority = "urgen"
     """
@@ -425,4 +425,24 @@ def top_selling(items: list[dict], top_n: int)-> list[dict]:
     products = list(top_sales.values())
     products.sort(key=lambda x: x["total_qty"], reverse=True)
     return products[:top_n]
-     
+
+# Câu 46: Phát hiện đơn hàng bất thường [Khó] (Tạo API)
+# Bối cảnh: Fraud detection service cần tìm các đơn hàng có tổng tiền cao bất thường so với mặt bằng chung.
+
+"""
+Viết hàm detect_anomalies(orders, threshold). Tính trung bình total của
+tất cả đơn. Trả về các đơn có total > threshold * avg. Nếu danh sách rỗng trả về
+list rỗng.
+"""
+def detect_anomalies(orders: list[dict], threshold: float)-> list[dict]:
+    if not orders:
+        return []
+   
+    totals = sum(order.get("total",0) for order in orders)
+    avg = totals / len(orders)
+    threshold_price = threshold * avg
+    anomalies = []
+    for order in orders:
+        if order.get("total",0) > threshold_price:
+            anomalies.append(order)
+    return anomalies
